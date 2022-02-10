@@ -1,7 +1,8 @@
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+
+import org.apache.commons.io.output.FileWriterWithEncoding;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -68,19 +69,20 @@ public class Main {
 
     private static void imprimirAlunosPorTurma(Turma turma) {
         Collections.sort(turma.getAlunos());
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("" + turma.getNome() + ".txt"))) {
+        String linha = "\n";
+        try (FileWriterWithEncoding writer = new FileWriterWithEncoding( turma.getNome() + ".txt", Charset.defaultCharset())) {
 
             writer.write("Turma: " + turma.getNome());
-            writer.newLine();
+            writer.write(linha);
 
             writer.write("Quantidade de Alunos: " + turma.getAlunos().size());
-            writer.newLine();
-            writer.newLine();
+            writer.write(linha);
+            writer.write(linha);
 
             for (Aluno aluno : turma.getAlunos()
             ) {
                 writer.write(aluno.getNome());
-                writer.newLine();
+                writer.write(linha);
 
 
             }
@@ -92,18 +94,19 @@ public class Main {
 
 
     private static void imprimirTodosOsAlunos(SortedSet<Aluno> alunos) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("listaalunos.txt"))) {
+       String linha = "\n";
+        try (FileWriterWithEncoding writer = new FileWriterWithEncoding("listaalunos.txt", Charset.defaultCharset())) {
 
             writer.write("Todos os Alunos");
-            writer.newLine();
+            writer.write(linha);
             writer.write("Quantidade de Alunos: " + alunos.size());
-            writer.newLine();
-            writer.newLine();
+            writer.write(linha);
+            writer.write(linha);
 
             for (Aluno aluno : alunos
             ) {
                 writer.write(aluno.getNome());
-                writer.newLine();
+                writer.write(linha);
 
 
             }
@@ -114,61 +117,8 @@ public class Main {
     }
 
 
+
+
 }
 
 
-
-/*
-    Projeto de avaliacao do Módulo de Dependencias externas
-        Crie um projeto individual/grupo Utilizando os principais topicos apresentados ao longo dos módulos.
-
-        Desejável:
-        Aplicar principios da OO  ok
-        Utilizar um gerenciador de pacotes ( Maven / Gradle) OK MAven
-        Utilizar Lombok  OK
-        Utilziar pelo menos 2 dependencias  ||| 1 dep Lombok falta 1
-        Utuilziar pelo menos 2 estrutura de dados distintas ||| 1 list 2 sortedlist
-        Gerar os arquivos de saida para cada ok
-        Precisa ser inserida 2 funcionalidades. ok
-
-        Imprimir cada turma e seus alunos ok
-        Nome da turma ok
-        total alunos ok
-        nome dos alunos ok
-        imprimir todos os alunos da escola ( sem duplicados, ja que existem alunos nas duas turmas) em ordem alfabetica
-        -As impressões deverão ser geradas em um arquivo.txt ok
-
-        Alunos de cada turma:
-
-        Turma Java
-
-        Projeto - Mod. Dependencias Externas
-        Alexandre Martins
-        Vitor Hugo Lima
-        Esther Rodrigues
-        Lavínia Cunha
-        Natália Gomes
-        Yago Ramos
-        Letícia Cunha
-        Srta. Ana Júlia Ramos
-        Pietra Martins
-        Thomas Peixoto
-        Thales Farias
-        Turma Banco de dados
-
-        Vitor Hugo Lima
-        Esther Rodrigues
-        Nathan Nascimento
-        Lavínia Cunha
-        Natália Gomes
-        Dra. Lavínia Lopes
-        Yago Ramos
-        Letícia Cunha
-        Luiz Miguel Azevedo
-        Srta. Ana Júlia Ramos
-        Thales Farias
-        Dra. Alana Porto
-        Avaliação e Entrega.
-        Entrega do link do repositorio, tendo o ultimo commit sendo no maximo o ultimo dia do modulo (09/02/2022)
-
-        Cada projeto será avaliado e revisado e cada aluno sera respondido com um feedback sobre o trablaho.*/
